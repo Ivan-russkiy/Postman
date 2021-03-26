@@ -1,0 +1,44 @@
+function testf() {
+  
+  var jsonData = pm.response.json();
+ 
+ console.log(jsonData);
+pm.environment.set("token", jsonData.token); 
+
+}
+pm.test("response should be okay to process", testf);
+
+---------------------------------------------------------
+
+pm.test("Статус код 200", function() {
+    var status = pm.response.code;
+    pm.expect(status).to.eql(200);
+
+});
+pm.test("Проверка структуры json в ответе.", function() {
+    //    pm.response.to.be.ok;
+   //  pm.response.to.be.withBody;
+     pm.response.to.be.json;
+
+});
+
+pm.test("В ответе указаны коэффициенты умножения salary, напишите тесты по проверке правильности результата перемножения на коэффициент.", function() {
+
+    var salary = parseInt(pm.environment.get("salary"));
+     console.log(salary);
+     var jsonData = pm.response.json();
+    console.log(jsonData);
+
+    var salary = jsonData.person.u_name[1];
+    var name = jsonData.person.u_name[0];
+
+    
+    pm.expect(jsonData.qa_salary_after_6_months).to.eql(salary * 2);
+    pm.expect(jsonData.qa_salary_after_12_months).to.eql(salary * 2.9);
+    pm.expect(jsonData.person.u_salary_1_5_year).to.eql(salary * 4);
+    pm.expect(jsonData.person.u_age).to.eql(39);
+    pm.expect(name).to.eql("Ivan");
+
+});
+
+------------------------------------------------------------------------------
